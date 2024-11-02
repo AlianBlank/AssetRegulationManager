@@ -17,8 +17,7 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
     {
         [SerializeField] private BuildTargetGroupListableProperty _target = new BuildTargetGroupListableProperty();
 
-        [SerializeField]
-        private TextureImporterFormatListableProperty _format = new TextureImporterFormatListableProperty();
+        [SerializeField] private TextureImporterFormatListableProperty _format = new TextureImporterFormatListableProperty();
 
         public BuildTargetGroupListableProperty Target => _target;
 
@@ -114,6 +113,43 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
                     {
                         return true;
                     }
+                }
+            }
+
+            return false;
+        }
+
+        protected override bool FixedInternal(Texture2D asset)
+        {
+            Assert.IsNotNull(asset);
+
+            var assetPath = AssetDatabase.GetAssetPath(asset);
+            var importer = (TextureImporter)AssetImporter.GetAtPath(assetPath);
+            foreach (var target in _target)
+            {
+                if (!Enum.IsDefined(typeof(BuildTargetGroup), target))
+                {
+                    continue;
+                }
+
+                var targetString = target.ToString();
+                var platformTextureSettings = importer.GetPlatformTextureSettings(targetString);
+
+                foreach (var format in _format)
+                {
+                    if (!Enum.IsDefined(typeof(TextureImporterFormat), format))
+                    {
+                        continue;
+                    }
+
+                    if (format == platformTextureSettings.format)
+                    {
+                        return true;
+                    }
+
+                    platformTextureSettings.format = format;
+                    importer.SetPlatformTextureSettings(platformTextureSettings);
+                    importer.SaveAndReimport();
                 }
             }
 

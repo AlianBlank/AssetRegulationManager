@@ -90,7 +90,9 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
         private void OnEnable()
         {
             if (_treeViewState == null)
+            {
                 _treeViewState = new AssetRegulationViewerTreeViewState();
+            }
 
             TreeView = new AssetRegulationViewerTreeView(_treeViewState);
             _searchField = new SearchField();
@@ -104,7 +106,7 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
 
             if (string.IsNullOrEmpty(_searchText))
                 _searchField.SetFocus();
-            
+
             EditorApplication.delayCall += OnAssetPathOrFilterChanged;
         }
 
@@ -171,11 +173,11 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
                 {
                     var menu = new GenericMenu();
                     menu.AddItem(new GUIContent("Hide Empty"), ExcludeEmptyTests.Value,
-                        () => ExcludeEmptyTests.Value = !ExcludeEmptyTests.Value);
+                                 () => ExcludeEmptyTests.Value = !ExcludeEmptyTests.Value);
                     menu.AddItem(new GUIContent("Export/Text"), false,
-                        () => _exportAsTextButtonClickedSubject.OnNext(Empty.Default));
+                                 () => _exportAsTextButtonClickedSubject.OnNext(Empty.Default));
                     menu.AddItem(new GUIContent("Export/Json"), false,
-                        () => _exportAsJsonButtonClickedSubject.OnNext(Empty.Default));
+                                 () => _exportAsJsonButtonClickedSubject.OnNext(Empty.Default));
 
                     menu.ShowAsContext();
                 }

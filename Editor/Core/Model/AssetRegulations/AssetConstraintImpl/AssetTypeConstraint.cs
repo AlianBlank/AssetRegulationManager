@@ -85,5 +85,12 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
 
             return false;
         }
+
+        protected override bool FixedInternal(Object asset)
+        {
+            Assert.IsNotNull(asset);
+
+            return true;
+        }
     }
 }

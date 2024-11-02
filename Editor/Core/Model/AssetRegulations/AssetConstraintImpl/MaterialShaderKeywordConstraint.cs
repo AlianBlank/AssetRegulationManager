@@ -96,5 +96,12 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        protected override bool FixedInternal(Material asset)
+        {
+            Assert.IsNotNull(asset);
+            // asset.shaderKeywords = _keywords.ToArray();
+            return true;
+        }
     }
 }

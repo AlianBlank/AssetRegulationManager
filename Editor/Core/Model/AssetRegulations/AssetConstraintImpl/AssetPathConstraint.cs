@@ -127,5 +127,12 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        protected override bool FixedInternal(Object asset)
+        {
+            Assert.IsNotNull(asset);
+
+            return true;
+        }
     }
 }

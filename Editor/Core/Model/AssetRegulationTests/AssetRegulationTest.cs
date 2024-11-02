@@ -88,6 +88,32 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulationTests
             Run(entryIds);
         }
 
+        internal void RunFixed(IReadOnlyList<string> entryIds)
+        {
+            var status = AssetRegulationTestStatus.Success;
+            var asset = _assetDatabaseAdapter.LoadAssetAtPath<Object>(AssetPath);
+            foreach (var entry in _entries.Values)
+            {
+                if (!entryIds.Contains(entry.Id))
+                {
+                    continue;
+                }
+
+                entry.RunFixed(asset);
+                if (entry.Status.Value == AssetRegulationTestStatus.Failed)
+                {
+                    status = AssetRegulationTestStatus.Failed;
+                }
+                else if (status != AssetRegulationTestStatus.Failed
+                         && entry.Status.Value == AssetRegulationTestStatus.Warning)
+                {
+                    status = AssetRegulationTestStatus.Warning;
+                }
+            }
+
+            _latestStatus.Value = status;
+        }
+
         internal void Run(IReadOnlyList<string> entryIds)
         {
             var status = AssetRegulationTestStatus.Success;

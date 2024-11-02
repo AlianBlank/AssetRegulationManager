@@ -33,6 +33,11 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
             }
         }
 
+        public string AssetPath
+        {
+            get { return _assetPath; }
+        }
+
         public string TestId { get; }
         public AssetRegulationTestStatus Status { get; set; }
 

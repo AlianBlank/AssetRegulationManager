@@ -5,7 +5,6 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstraintImpl
 {

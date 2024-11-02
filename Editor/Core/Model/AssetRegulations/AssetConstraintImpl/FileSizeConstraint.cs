@@ -75,6 +75,12 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
             return size <= _maxSize;
         }
 
+        protected override bool FixedInternal(Object asset)
+        {
+            Assert.IsNotNull(asset);
+            return true;
+        }
+
         private static long ConvertSize(long bytes, SizeUnit unit)
         {
             switch (unit)

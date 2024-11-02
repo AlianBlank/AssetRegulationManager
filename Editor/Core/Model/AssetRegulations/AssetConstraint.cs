@@ -26,6 +26,11 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations
             return CheckInternal((TAsset)asset);
         }
 
+        public bool Fixed(Object obj)
+        {
+            return FixedInternal((TAsset)obj);
+        }
+
         /// <inheritdoc/>
         public abstract string GetDescription();
 
@@ -45,5 +50,12 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations
         /// <param name="asset"></param>
         /// <returns></returns>
         protected abstract bool CheckInternal(TAsset asset);
+        
+        /// <summary>
+        /// fixed value
+        /// </summary>
+        /// <param name="asset"></param>
+        /// <returns></returns>
+        protected abstract bool FixedInternal(TAsset asset);
     }
 }

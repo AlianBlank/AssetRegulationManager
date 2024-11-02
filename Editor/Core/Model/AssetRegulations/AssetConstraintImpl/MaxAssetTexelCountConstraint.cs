@@ -37,7 +37,7 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
             Assert.IsNotNull(asset);
 
             var textures = EditorUtility.CollectDependencies(new[] { asset })
-                .OfType<Texture>();
+                                        .OfType<Texture>();
 
             var texelCount = 0;
             foreach (var texture in textures)
@@ -45,6 +45,12 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
 
             _latestValue = texelCount;
             return texelCount <= _maxCount;
+        }
+
+        protected override bool FixedInternal(Object asset)
+        {
+            Assert.IsNotNull(asset);
+            return true;
         }
     }
 }

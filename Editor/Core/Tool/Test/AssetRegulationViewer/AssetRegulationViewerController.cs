@@ -74,10 +74,10 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
             }).DisposeWith(_disposables);
 
             window.CheckAllButtonClickedAsObservable
-                .Subscribe(_ =>
-                {
-                    var __ = CheckAllAsync();
-                }).DisposeWith(_disposables);
+                  .Subscribe(_ =>
+                  {
+                      var __ = CheckAllAsync();
+                  }).DisposeWith(_disposables);
 
             window.CheckSelectedAddButtonClickedAsObservable.Subscribe(_ =>
             {
@@ -268,6 +268,11 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
         {
             const string message = "Unexpected error has occurred during testing. See the Console Window for details.";
             EditorUtility.DisplayDialog("Error", message, "OK");
+        }
+
+        public void RunFixed(string testId, string entryId)
+        {
+            _executeService.RunFixed(testId, new[] { entryId });
         }
     }
 }

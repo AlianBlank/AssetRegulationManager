@@ -78,5 +78,11 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
             _latestValue = vertexCount;
             return vertexCount <= _maxCount;
         }
+
+        protected override bool FixedInternal(SceneAsset asset)
+        {
+            Assert.IsNotNull(asset);
+            return true; 
+        }
     }
 }

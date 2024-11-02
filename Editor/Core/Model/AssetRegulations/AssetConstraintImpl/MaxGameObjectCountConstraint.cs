@@ -4,6 +4,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstraintImpl
 {
@@ -15,6 +16,12 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
         {
             var desc = $"Max GameObject Count: {MaxCount} ({(ExcludeInactive ? "Exclude" : "Include")} Inactive)";
             return desc;
+        }
+
+        protected override bool FixedInternal(GameObject asset)
+        {
+            Assert.IsNotNull(asset);
+            return true;
         }
     }
 }

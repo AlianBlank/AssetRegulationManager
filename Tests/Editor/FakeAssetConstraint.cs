@@ -22,6 +22,11 @@ namespace AssetRegulationManager.Tests.Editor
 
         public bool Result { get; }
 
+        public bool Fixed(Object obj)
+        {
+            return Result;
+        }
+
         public string GetDescription()
         {
             return _description;

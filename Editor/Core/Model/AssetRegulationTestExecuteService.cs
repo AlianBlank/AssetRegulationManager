@@ -55,5 +55,11 @@ namespace AssetRegulationManager.Editor.Core.Model
             var test = _store.Tests[testId];
             test.Run(entryIds);
         }
+
+        public void RunFixed(string testId, IReadOnlyList<string> entryIds)
+        {
+            var test = _store.Tests[testId];
+            test.RunFixed(entryIds);
+        }
     }
 }

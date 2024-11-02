@@ -21,6 +21,13 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations
         bool Check(Object obj);
 
         /// <summary>
+        ///     Fixed if <see cref="obj" /> is within the constraint.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        bool Fixed(Object obj);
+
+        /// <summary>
         ///     Get a description of this constraint.
         /// </summary>
         /// <returns></returns>

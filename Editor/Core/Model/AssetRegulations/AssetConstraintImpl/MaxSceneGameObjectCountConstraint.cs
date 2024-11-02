@@ -3,7 +3,9 @@
 // --------------------------------------------------------------
 
 using System;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstraintImpl
 {
@@ -16,6 +18,12 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
             var desc =
                 $"Max GameObject Count in Scene: {MaxCount} ({(ExcludeInactive ? "Exclude" : "Include")} Inactive)";
             return desc;
+        }
+
+        protected override bool FixedInternal(SceneAsset asset)
+        {
+            Assert.IsNotNull(asset);
+            return true; 
         }
     }
 }

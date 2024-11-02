@@ -68,13 +68,38 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
                 case Columns.ActualValue:
                     GUI.Label(cellRect, GetText(args.item, columnIndex));
                     break;
+                case Columns.Operation:
+                    if (string.IsNullOrWhiteSpace(args.item.displayName))
+                    {
+                        break;
+                    }
+
+                    var status = GetStatus(args.item);
+                    if (status == AssetRegulationTestStatus.Success || status == AssetRegulationTestStatus.None)
+                    {
+                        break;
+                    }
+
+                    if (GUI.Button(cellRect, "Fixed To : " + args.item.displayName))
+                    {
+                        if (args.item.parent is AssetRegulationTestTreeViewItem assetRegulationTestTreeViewItem)
+                        {
+                            var application = AssetRegulationTestApplication.RequestInstance();
+                            foreach (var treeViewItem1 in assetRegulationTestTreeViewItem.children)
+                            {
+                                var treeViewItem = (AssetRegulationTestEntryTreeViewItem)treeViewItem1;
+                                application.AssetRegulationViewerController.RunFixed(assetRegulationTestTreeViewItem.TestId, treeViewItem.EntryId);
+                            }
+                        }
+                    }
+
+                    break;
                 default:
                     throw new NotImplementedException();
             }
         }
 
-        protected override IOrderedEnumerable<TreeViewItem> OrderItems(IList<TreeViewItem> items, int keyColumnIndex,
-            bool ascending)
+        protected override IOrderedEnumerable<TreeViewItem> OrderItems(IList<TreeViewItem> items, int keyColumnIndex, bool ascending)
         {
             throw new NotSupportedException();
         }
@@ -116,6 +141,8 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
                 case Columns.Test:
                     return ((AssetRegulationTestTreeViewItem)treeViewItem).DisplayName;
                 case Columns.ActualValue:
+                    return GetActualValue(treeViewItem);
+                case Columns.Operation:
                     return GetActualValue(treeViewItem);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(columnIndex), columnIndex, null);
@@ -168,7 +195,8 @@ namespace AssetRegulationManager.Editor.Core.Tool.Test.AssetRegulationViewer
         private enum Columns
         {
             Test,
-            ActualValue
+            ActualValue,
+            Operation,
         }
     }
 }

@@ -29,6 +29,27 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulationTests
         public IReadOnlyObservableProperty<AssetRegulationTestStatus> Status => _status;
         public IReadOnlyObservableProperty<string> Message => _message;
 
+        internal void RunFixed(Object obj)
+        {
+            try
+            {
+                var success = Constraint.Fixed(obj);
+                if (success)
+                    _status.Value = AssetRegulationTestStatus.Success;
+                else
+                    _status.Value = AssetRegulationTestStatus.Failed;
+
+                _message.Value = $"Actual Value: {Constraint.GetLatestValueAsText()}";
+            }
+            catch (InvalidCastException)
+            {
+                // If the cast fails, the constraint does not support the type of obj.
+                // It may be a configuration error so make it a warning.
+                _status.Value = AssetRegulationTestStatus.Warning;
+                _message.Value = $"This test cannot be used for {obj.GetType()}.";
+            }
+        }
+
         internal void Run(Object obj)
         {
             try

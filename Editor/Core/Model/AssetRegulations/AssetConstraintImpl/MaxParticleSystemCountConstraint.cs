@@ -4,6 +4,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstraintImpl
 {
@@ -12,5 +13,10 @@ namespace AssetRegulationManager.Editor.Core.Model.AssetRegulations.AssetConstra
         "Max Particle System Count in GameObject")]
     public sealed class MaxParticleSystemCountConstraint : MaxComponentCountConstraint<ParticleSystem>
     {
+        protected override bool FixedInternal(GameObject asset)
+        {
+            Assert.IsNotNull(asset);
+            return true; 
+        }
     }
 }
